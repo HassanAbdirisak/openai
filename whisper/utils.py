@@ -27,11 +27,23 @@ def exact_div(x, y):
 
 
 def str2bool(string):
-    str2val = {"True": True, "False": False}
-    if string in str2val:
-        return str2val[string]
-    else:
-        raise ValueError(f"Expected one of {set(str2val.keys())}, got {string}")
+    """Parse a string into a boolean value."""
+
+    if isinstance(string, bool):
+        return string
+
+    str_lower = string.lower()
+    truthy = {"true", "t", "yes", "y", "1"}
+    falsy = {"false", "f", "no", "n", "0"}
+
+    if str_lower in truthy:
+        return True
+    if str_lower in falsy:
+        return False
+
+    raise ValueError(
+        f"Expected a boolean value (one of {truthy | falsy}), got {string}"
+    )
 
 
 def optional_int(string):
